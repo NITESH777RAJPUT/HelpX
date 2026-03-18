@@ -39,6 +39,7 @@ function Chat() {
 
     socket.emit("join_room", taskId);
 
+    // ✅ ONLY socket handles messages (no duplicate)
     socket.on("receive_message", (msg) => {
       setMessages((prev) => [...prev, msg]);
       setTypingUser(null);
@@ -64,7 +65,7 @@ function Chat() {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // ✅ SEND MESSAGE
+  // ✅ SEND MESSAGE (FIXED ❌ duplicate removed)
   const sendMessage = () => {
     if (!text.trim()) return;
 
@@ -75,9 +76,11 @@ function Chat() {
     };
 
     socket.emit("send_message", msgData);
-    setMessages((prev) => [...prev, msgData]);
-    setText("");
 
+    // ❌ REMOVED THIS (main bug)
+    // setMessages((prev) => [...prev, msgData]);
+
+    setText("");
     socket.emit("stop_typing", { room: taskId });
   };
 
@@ -180,7 +183,7 @@ function Chat() {
         <div ref={scrollRef} />
       </div>
 
-      {/* ✅ FIXED INPUT (NAVBAR KE UPAR) */}
+      {/* ✅ FIXED INPUT */}
       <div className="fixed bottom-16 left-0 w-full bg-[#f0f2f5] border-t px-3 py-2 z-50">
         <div className="flex items-center gap-2 max-w-4xl mx-auto">
 
