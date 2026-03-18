@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-primary: #e6ecf5;
+    --bg-secondary: #f8fafc;
+
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+
+    --accent: #6366f1;
+    /* Indigo */
+    --accent-soft: #a5b4fc;
+
+    --neumorph-light: #ffffff;
+    --neumorph-dark: #c9d6e2;
+
+    --glass-bg: rgba(255, 255, 255, 0.3);
+    --glass-border: rgba(255, 255, 255, 0.2);
+  }
+
+  [data-theme="dark"] {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+
+    --text-primary: #e2e8f0;
+    --text-secondary: #94a3b8;
+
+    --accent: #818cf8;
+    --accent-soft: #6366f1;
+
+    --neumorph-light: #1f2937;
+    --neumorph-dark: #020617;
+
+    --glass-bg: rgba(30, 41, 59, 0.5);
+    --glass-border: rgba(255, 255, 255, 0.08);
+  }
+
+  body {
+    @apply min-h-screen transition-all duration-500;
+    color: var(--text-primary);
+    background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+
+    background-image:
+      radial-gradient(at 20% 20%, rgba(99, 102, 241, 0.15), transparent 50%),
+      radial-gradient(at 80% 80%, rgba(236, 72, 153, 0.1), transparent 50%);
+
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+
+  /* 🔥 NEUMORPH CARD (More Depth + Softer look) */
+  .neumorph-card {
+    background: var(--bg-primary);
+    border-radius: 1.5rem;
+
+    box-shadow:
+      10px 10px 20px var(--neumorph-dark),
+      -10px -10px 20px var(--neumorph-light);
+
+    transition: all 0.35s ease;
+  }
+
+  .neumorph-card:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow:
+      16px 16px 32px var(--neumorph-dark),
+      -16px -16px 32px var(--neumorph-light);
+  }
+
+  /* ✨ INPUT STYLE IMPROVED */
+  .neumorph-inset {
+    background: var(--bg-secondary);
+    border-radius: 1rem;
+    padding: 0.6rem 1rem;
+
+    box-shadow:
+      inset 4px 4px 8px var(--neumorph-dark),
+      inset -4px -4px 8px var(--neumorph-light);
+
+    transition: all 0.2s;
+  }
+
+  .neumorph-inset:focus {
+    box-shadow:
+      inset 2px 2px 6px var(--neumorph-dark),
+      inset -2px -2px 6px var(--neumorph-light);
+  }
+
+  /* 💎 GLASS CARD (Premium UI) */
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px);
+
+    border: 1px solid var(--glass-border);
+    border-radius: 1.5rem;
+
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  }
+
+  /* 🚀 BUTTON STYLE (NEW ADD) */
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+    color: white;
+    border-radius: 1rem;
+    padding: 0.6rem 1.2rem;
+    font-weight: 500;
+
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+  }
+
+  /* ✨ SMOOTH FADE */
+  .fade-in {
+    animation: fadeInUp 0.7s ease forwards;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* 💥 RIPPLE (Improved) */
+  .ripple {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ripple::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: 0.5s;
+  }
+
+  .ripple:active::after {
+    width: 250px;
+    height: 250px;
+    opacity: 1;
+  }
+
+  /* 📌 Sidebar Smooth */
+  .sidebar {
+    transition: all 0.35s ease;
+  }
+
+  .sidebar.collapsed {
+    transform: translateX(-100%);
+    @apply w-0 opacity-0;
+  }
+}
